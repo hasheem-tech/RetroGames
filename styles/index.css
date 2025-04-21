@@ -1,0 +1,26 @@
+header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    align-items: center;
+    background-color: rgb(5, 5, 62);
+    padding: 20px;
+    border: 2px solid black;
+    margin-bottom: 5px;
+ }
+ header img{
+    width: 200px;
+ }
+ header nav{
+    background-color: red;
+    display: flex;
+    justify-content: space-around;
+ }
+ header nav a{
+    text-decoration: none;
+    color: white;
+    padding: 10px 50px 10px 50px;
+    text-wrap: nowrap;
+    border: 1px solid white;
+
+ }
