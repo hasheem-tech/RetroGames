@@ -45,16 +45,16 @@ window.onload = function(){
 
     //load image
     birdimg = new Image();
-    birdimg.src = "../images/bird.png";
+    birdimg.src = "images/bird.png";
     birdimg.onload = function(){
         context.drawImage(birdimg, bird.x, bird.y, bird.width, bird.height);
     }
 
     topTreeImg = new Image();
-    topTreeImg.src = "../images/top-tree.png";
+    topTreeImg.src = "images/top-tree.png";
 
     bottomTreeImg = new Image();
-    bottomTreeImg.src = "../images/bottom-tree.png";
+    bottomTreeImg.src = "images/bottom-tree.png";
    
    
     if (gameOver == false){
@@ -74,7 +74,8 @@ function update(){
     // bird
     velocityY += gravity;
     bird.y += velocityY;
-    bird.y = Math.max(bird.y + velocityY, 0);      
+    bird.y = Math.max(bird.y + velocityY, 0);    
+ 
     context.drawImage(birdimg, bird.x, bird.y, bird.width, bird.height);
     if (bird.y + bird.height > board.height) {
         gameOver = true;
