@@ -133,7 +133,6 @@ function detectCollision(bird, tree) {
         width: bird.width - 40,
         height: bird.height - 20
     };
-
     // Shrink the tree's hitbox
     let treeHitbox = {
         x: tree.x + 30,
@@ -141,7 +140,6 @@ function detectCollision(bird, tree) {
         width: tree.width - 40,
         height: tree.height - 40
     };
-
     return birdHitbox.x < treeHitbox.x + treeHitbox.width &&
            birdHitbox.x + birdHitbox.width > treeHitbox.x &&
            birdHitbox.y < treeHitbox.y + treeHitbox.height &&
