@@ -1,7 +1,7 @@
 //variables for board
 let board;
-let boardWidth = 700;
-let boardHeight = 500;
+let boardWidth = 800;
+let boardHeight = 550;
 let context;
 
 // variables for bird
@@ -119,7 +119,9 @@ function placeTrees(){
 
 function moveBird(e){
     if (e.code == "Space" || e.code == "ArrowUp"){
+        e.preventDefault();
         velocityY = -4;
+        console.log(e.code);
     }
 }
 
