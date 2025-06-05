@@ -28,13 +28,14 @@ let topTreeImg;
 let bottomTreeImg;
 
 // variables for game physics
-let velocityX = -3;
+
 let velocityY = 0;
 let gravity = 0.3;
-let gameOver = false;
-let gameStarted = false;
+let gameOver = true;
 let score = 0;
-
+let velocityX = -5;
+let gameSpeed = 700;
+let treeInterval;
 window.onload = function(){
     board = document.getElementById("board");
     board.height = boardHeight;
@@ -57,14 +58,17 @@ window.onload = function(){
     bottomTreeImg.src = "images/bottom-tree.png";
 
     
-    
-
-
-    if (gameOver == false){
-    requestAnimationFrame(update);
-    
-    setInterval(placeTrees, 1500);
+    // Play button
+    playimg = new Image();
+    playimg.src = "images/playButton.png";
+    playimg.onload = function(){
+        context.fillStyle = "rgba(0, 0, 0, 0.5)";
+        context.fillRect(0, 0, boardWidth, boardHeight);
+        context.drawImage(playimg, boardWidth/2.3, boardHeight/2.5, 100, 100)
     }
+
+    document.addEventListener("keydown", startgame, { once: true });
+
 
     document.addEventListener("keydown", moveBird);
     document.addEventListener('keyup', birdflap);
@@ -75,6 +79,7 @@ function update(){
     }
     context.clearRect(0, 0, boardWidth, boardHeight);
 
+ 
     // bird
     velocityY += gravity;
     bird.y += velocityY;
@@ -103,7 +108,7 @@ function update(){
     while(treeArray.length > 0 && treeArray[0].x < -treeWidth){
         treeArray.shift();
     }
-    //score
+    score
     context.fillStyle = "white";
     context.font = "100px sans-serif";
     context.fillText(score, 50, 120);
@@ -138,11 +143,20 @@ function placeTrees(){
     }
     treeArray.push(bottomTree);
 }
-
+function startgame(e){
+     if (e.code == "Space"){
+        gameOver = false;
+        
+        if (gameOver == false){
+            requestAnimationFrame(update);
+    
+            setInterval(placeTrees, gameSpeed);
+    }
+    }
+}
 function moveBird(e){
 
     if (e.code == "Space" || e.code == "ArrowUp"){
-        gameStarted = true;
         e.preventDefault();
         velocityY = -4;
         birdimg.src = "images/bird-flap.png";
@@ -152,6 +166,9 @@ function moveBird(e){
         bird.y = birdY;
         treeArray = [];
         score = 0;
+        scoreSpeed = 0;
+        velocityX = -5;
+        gameSpeed = 700;
         gameOver = false;
         requestAnimationFrame(update);
     
