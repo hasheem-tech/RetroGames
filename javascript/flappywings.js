@@ -31,21 +31,18 @@ let topTreeImg;
 let bottomTreeImg;
 
 // variables for game physics
-
 let velocityX = -2;
 let velocityY = 0;
 let gravity = 0.3;
 let gameOver = false;
 
-window.onload = function () {
+window.onload = function(){
     board = document.getElementById("board");
     board.height = boardHeight;
     board.width = boardWidth;
     context = board.getContext("2d"); // used to drawing on board
 
-    // draw flappy bird
-    //context.fillStyle = "red";
-    //context.fillRect(bird.x, bird.y, bird.width, bird.height);
+
 
     //load image
 
@@ -60,15 +57,16 @@ window.onload = function () {
 
     bottomTreeImg = new Image();
     bottomTreeImg.src = "images/bottom-tree.png";
-
-
-    if (gameOver == false) {
-        requestAnimationFrame(update);
-
-        setInterval(placeTrees, 1500);
+   
+   
+    if (gameOver == false){
+    requestAnimationFrame(update);
+    
+    setInterval(placeTrees, 1500);
     }
 
     document.addEventListener("keydown", moveBird);
+    document.addEventListener('keyup', birdflap);
 }
 function update() {
     if (gameOver == false) {
@@ -76,6 +74,7 @@ function update() {
     }
     context.clearRect(0, 0, boardWidth, boardHeight);
 
+ 
     // bird
 
     velocityY += gravity;
@@ -93,9 +92,22 @@ function update() {
         let tree = treeArray[i];
         tree.x += velocityX;
         context.drawImage(tree.img, tree.x, tree.y, tree.width, tree.height);
-        if (detectCollision(bird, tree)) {
+        if (detectCollision(bird, tree)){
             gameOver = true;
         }
+        
+    }
+    //remove trees
+    while(treeArray.length > 0 && treeArray[0].x < -treeWidth){
+        treeArray.shift();
+    }
+    score
+    context.fillStyle = "white";
+    context.font = "100px sans-serif";
+    context.fillText(score, 50, 120);
+
+    if (gameOver){
+        context.fillText("Game Over", boardWidth/6, boardHeight/2);
     }
 
 
@@ -125,12 +137,32 @@ function placeTrees() {
     treeArray.push(bottomTree);
 }
 
-function moveBird(e) {
-    if (e.code == "Space" || e.code == "ArrowUp") {
+function moveBird(e){
+    if (e.code == "Space" || e.code == "ArrowUp"){
         e.preventDefault();
         velocityY = -4;
-        console.log(e.code);
+        birdimg.src = "images/bird-flap.png";
     }
+
+    if (gameOver){
+        bird.y = birdY;
+        treeArray = [];
+        score = 0;
+        scoreSpeed = 0;
+        velocityX = -5;
+        gameSpeed = 700;
+        gameOver = false;
+        requestAnimationFrame(update);
+    
+    }
+    
+}
+function birdflap(e){
+    if (e.code == "Space" || e.code == "ArrowUp"){
+        e.preventDefault();
+        birdimg.src = "images/bird.png";
+    }
+   
 }
 
 function detectCollision(bird, tree) {
@@ -157,6 +189,5 @@ function detectCollision(bird, tree) {
         birdHitbox.y < treeHitbox.y + treeHitbox.height &&
         birdHitbox.y + birdHitbox.height > treeHitbox.y;
 }
-
 
 
