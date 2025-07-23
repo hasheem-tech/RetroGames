@@ -4,9 +4,11 @@
    box-sizing: border-box;
    font-family: sans-serif;
 }
-a{
-    text-decoration: none;
+
+a {
+   text-decoration: none;
 }
+
 header {
    position: fixed;
    top: 0;
@@ -20,6 +22,7 @@ header {
    width: 100%;
    z-index: 10;
 }
+
 header img {
    width: 350px;
    padding-left: 3px;
@@ -116,12 +119,14 @@ h1 {
 .game figcaption {
    font-size: 20px;
    text-shadow: 1px 1px 1px rgb(97, 95, 95);
-   
+
 }
-.game figcaption:hover{
+
+.game figcaption:hover {
    cursor: pointer;
 }
-.game img:hover{
+
+.game img:hover {
    transform: scale(1.1);
    cursor: pointer;
    transition: .2s;
