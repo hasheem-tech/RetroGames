@@ -177,8 +177,8 @@ function newPlayer() {
     player.matrix = random.matrix;
     player.name = random.name;
     player.pos.y = 0;
-    const maxX = 13 - random.matrix[0].length;
-    player.pos.x = Math.floor(Math.random() * maxX);
+    const maxX = 12 - random.matrix[0].length;
+    player.pos.x = Math.floor(Math.random() * maxX) + 1;
     if (collide(board, player.matrix, player.pos)) {
         console.log("Game Over!");
     }
